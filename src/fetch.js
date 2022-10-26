@@ -1,8 +1,10 @@
 const axios = require('../node_modules/axios/dist/axios/');
+import { page } from './index';
 const KEY = '30839127-8a41b37b8b94b94b2633e44b5';
 const imageType = 'photo';
 const imageOrientation = '&horizontal';
 const safesearch = 'true';
+const perPage = 6;
 const URL =
   'https://pixabay.com/api/?key=' +
   KEY +
@@ -11,9 +13,11 @@ const URL =
   '&image_orientation=' +
   imageOrientation +
   '&safesearch=' +
-  safesearch;
-const fetchBtn = document.querySelector('.fetch-button');
-let page = 1;
+  safesearch +
+  '&per_page=' +
+  perPage +
+  '&page=' +
+  page;
 
 async function fetchData(inputValue) {
   try {

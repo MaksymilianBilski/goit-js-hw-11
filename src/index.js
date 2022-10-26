@@ -2,12 +2,13 @@ const form = document.querySelector('search-form#search-form');
 const input = document.querySelector('input[type=text]');
 const button = document.querySelector('button[type=submit]');
 const gallery = document.querySelector('.gallery');
-const fetchBtn = document.querySelector('.fetch-button');
-import { fetchData, page } from './fetch';
+const fetchBtn = document.querySelector('.load-more');
+import { fetchData } from './fetch';
 const newArr = [];
+let page = 1;
 
 function getData() {
-  return fetchData('flower').then(response => {
+  return fetchData('earth').then(response => {
     const dataArray = response.hits;
     for (item of dataArray) {
       newArr.push(item);
@@ -50,13 +51,14 @@ async function createGallery() {
 }
 
 function cleanGallery() {
-  gallery.innerHTML = '';
+  fetch(URL, optionsDelete);
 }
-
 fetchBtn.addEventListener('click', () => {
+  page = 8;
   createGallery();
-  page += 1;
   if (gallery.children.length > 1) {
-    gallery.innerHTML = '';
   }
+  console.log(page);
 });
+
+export { page };
