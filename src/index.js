@@ -9,8 +9,7 @@ let page = 0;
 
 function getData() {
   inputValue = input.value;
-  console.log(inputValue);
-  return fetchData('horse').then(response => {
+  return fetchData(inputValue).then(response => {
     const dataArray = response.hits;
     console.log(response.hits);
     for (item of dataArray) {
@@ -59,7 +58,11 @@ function cleanGallery() {
 }
 form.addEventListener('submit', e => {
   e.preventDefault();
-  cleanGallery();
+  if (gallery.children.length >= 1) {
+    console.log(gallery.children.length);
+    gallery.innerHTML = '';
+    let newArr = [];
+  }
   page = 1;
   createGallery();
 });
