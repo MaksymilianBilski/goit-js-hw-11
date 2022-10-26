@@ -2,7 +2,7 @@ const axios = require('../node_modules/axios/dist/axios/');
 import { page } from './index';
 const KEY = '30839127-8a41b37b8b94b94b2633e44b5';
 const imageType = 'photo';
-const imageOrientation = '&horizontal';
+const imageOrientation = 'horizontal';
 const safesearch = 'true';
 const perPage = 6;
 const URL =
@@ -15,9 +15,7 @@ const URL =
   '&safesearch=' +
   safesearch +
   '&per_page=' +
-  perPage +
-  '&page=' +
-  page;
+  perPage;
 
 async function fetchData(inputValue) {
   try {

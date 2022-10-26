@@ -1,15 +1,18 @@
-const form = document.querySelector('search-form#search-form');
+const form = document.querySelector('#search-form');
 const input = document.querySelector('input[type=text]');
 const button = document.querySelector('button[type=submit]');
 const gallery = document.querySelector('.gallery');
 const fetchBtn = document.querySelector('.load-more');
 import { fetchData } from './fetch';
-const newArr = [];
-let page = 1;
+let newArr = [];
+let page = 0;
 
 function getData() {
-  return fetchData('earth').then(response => {
+  inputValue = input.value;
+  console.log(inputValue);
+  return fetchData('horse').then(response => {
     const dataArray = response.hits;
+    console.log(response.hits);
     for (item of dataArray) {
       newArr.push(item);
     }
@@ -21,7 +24,7 @@ function createMarkup() {
     gallery.insertAdjacentHTML(
       'afterbegin',
       `<div class="photo-card">
-        <img src="${item.webformatURL}" alt="${item.tags}" loading="lazy" width="420" />
+        <img src="${item.webformatURL}" alt="${item.tags}" loading="lazy" width="420" height="420" />
         <div class="info">
           <p class="info-item">
             <b>LIKES: ${item.likes}</b>
@@ -51,14 +54,24 @@ async function createGallery() {
 }
 
 function cleanGallery() {
-  fetch(URL, optionsDelete);
+  newArr = [];
+  gallery.insertAdjacentHTML = '';
 }
-fetchBtn.addEventListener('click', () => {
-  page = 8;
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  cleanGallery();
+  page = 1;
   createGallery();
+});
+
+fetchBtn.addEventListener('click', e => {
+  e.preventDefault();
   if (gallery.children.length > 1) {
+    gallery.innerHTML = '';
   }
-  console.log(page);
+  page += 1;
+  let newArr = [];
+  createGallery();
 });
 
 export { page };
