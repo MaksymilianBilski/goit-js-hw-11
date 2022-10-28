@@ -1,8 +1,8 @@
 {
-  "name": "parcel-project-template",
+  "name": "goit-js-hw-11",
   "version": "2.0.0",
   "description": "Ten projekt został stworzony przy pomocy Parcel. W celu zapoznania się i\r skonfigurowania dodatkowych opcji [zobacz dokumentację](https://parceljs.org/)",
-  "homepage": "https://maksymilianbilski.github.io/goit-js-hw-11/",
+  "homepage": "ttps://goitacademy.github.io/goit-js-hw-11",
   "scripts": {
     "start": "parcel src/*.html",
     "build": "parcel build src/*.html --public-url /goit-js-hw-11/"
@@ -32,6 +32,5 @@
     "posthtml-include": "^1.7.4",
     "process": "^0.11.10"
   },
-  "browserslist": "> 0.5%, last 2 versions, not dead",
-
+  "browserslist": "> 0.5%, last 2 versions, not dead"
 }
