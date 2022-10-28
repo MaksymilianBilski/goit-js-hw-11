@@ -18,9 +18,8 @@ function getData() {
   inputValue = input.value;
   return fetchData(inputValue).then(response => {
     const dataArray = response.hits;
-    console.log(' to jest linijika 21: ' + response.totalHits);
+    console.log(' to jest linijika 21: ' + JSON.stringify(response));
     totalHits = response.totalHits;
-    console.log('to jest linijika 23: ' + totalHits);
     for (item of dataArray) {
       newArr.push(item);
     }
@@ -69,18 +68,15 @@ form.addEventListener('submit', e => {
   e.preventDefault();
   fetchBtn.style.display = 'block';
   if (gallery.children.length >= 1) {
-    console.log(gallery.children.length);
     gallery.innerHTML = '';
     newArr = [];
   }
   page = 1;
   createGallery();
   if (gallery.children.length < 1) {
-    console.log(gallery.children.length);
     setTimeout(() => {
       Notify.success(`Hooray! We found ${totalHits} images.`);
-    }, 20);
-    console.log('to jest linijika 82: ' + totalHits);
+    }, 100);
   }
 });
 
