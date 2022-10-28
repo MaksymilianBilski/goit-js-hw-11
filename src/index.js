@@ -20,14 +20,14 @@ function getData() {
     const dataArray = response.hits;
     console.log(' to jest linijika 21: ' + JSON.stringify(response));
     totalHits = response.totalHits;
-    for (item of dataArray) {
+    for (const item of dataArray) {
       newArr.push(item);
     }
   });
 }
 
 async function createMarkup() {
-  for (item of newArr) {
+  for (const item of newArr) {
     gallery.insertAdjacentHTML(
       'beforeend',
       `<div class="photo-card">
@@ -73,7 +73,7 @@ form.addEventListener('submit', e => {
   }
   page = 1;
   createGallery();
-  if (gallery.children.length < 1) {
+  if (gallery.children.length <= 1 || gallery.children.length > 0) {
     setTimeout(() => {
       Notify.success(`Hooray! We found ${totalHits} images.`);
     }, 250);
