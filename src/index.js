@@ -18,15 +18,16 @@ function getData() {
   inputValue = input.value;
   return fetchData(inputValue).then(response => {
     const dataArray = response.hits;
+    console.log(' to jest linijika 21: ' + response.totalHits);
     totalHits = response.totalHits;
-    console.log(totalHits);
+    console.log('to jest linijika 23: ' + totalHits);
     for (item of dataArray) {
       newArr.push(item);
     }
   });
 }
 
-function createMarkup() {
+async function createMarkup() {
   for (item of newArr) {
     gallery.insertAdjacentHTML(
       'afterbegin',
@@ -54,7 +55,7 @@ function createMarkup() {
 async function createGallery() {
   try {
     await getData();
-    createMarkup();
+    await createMarkup();
   } catch (error) {
     console.log(error);
   }
@@ -74,9 +75,12 @@ form.addEventListener('submit', e => {
   }
   page = 1;
   createGallery();
-  if (gallery.children.length <= 1) {
+  if (gallery.children.length < 1) {
     console.log(gallery.children.length);
-    Notify.success(`Hooray! We found ${totalHits} images.`);
+    setTimeout(() => {
+      Notify.success(`Hooray! We found ${totalHits} images.`);
+    }, 20);
+    console.log('to jest linijika 82: ' + totalHits);
   }
 });
 
@@ -86,7 +90,6 @@ fetchBtn.addEventListener('click', e => {
     gallery.innerHTML = '';
   }
   page += 1;
-  // let newArr = [];
   createGallery();
 });
 
