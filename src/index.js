@@ -3,6 +3,7 @@ const input = document.querySelector('input[type=text]');
 const button = document.querySelector('button[type=submit]');
 const gallery = document.querySelector('.gallery');
 const fetchBtn = document.querySelector('.load-more');
+const photo = document.querySelector('.photo-card');
 
 import { fetchData, perPage } from './fetch';
 import { Notify } from 'notiflix';
@@ -80,8 +81,6 @@ form.addEventListener('submit', e => {
   }
   page = 1;
   createGallery();
-  gallery.style.display = 'flex';
-  gallery.style.flexDirection = 'row';
 });
 
 fetchBtn.addEventListener('click', e => {
