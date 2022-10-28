@@ -80,6 +80,8 @@ form.addEventListener('submit', e => {
   }
   page = 1;
   createGallery();
+  gallery.style.display = 'flex';
+  gallery.style.flexDirection = 'row';
 });
 
 fetchBtn.addEventListener('click', e => {
