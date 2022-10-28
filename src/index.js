@@ -15,7 +15,7 @@ fetchBtn.style.display = 'none';
 
 //
 function getData() {
-  inputValue = input.value;
+  const inputValue = input.value;
   return fetchData(inputValue).then(response => {
     const dataArray = response.hits;
     console.log(' to jest linijika 21: ' + JSON.stringify(response));
@@ -29,7 +29,7 @@ function getData() {
 async function createMarkup() {
   for (item of newArr) {
     gallery.insertAdjacentHTML(
-      'afterbegin',
+      'beforeend',
       `<div class="photo-card">
         <img src="${item.webformatURL}" alt="${item.tags}" loading="lazy" width="420" height="420" />
         <div class="info">
@@ -76,7 +76,7 @@ form.addEventListener('submit', e => {
   if (gallery.children.length < 1) {
     setTimeout(() => {
       Notify.success(`Hooray! We found ${totalHits} images.`);
-    }, 100);
+    }, 250);
   }
 });
 
