@@ -55,25 +55,26 @@ async function createGallery() {
   try {
     await getData();
     await createMarkup();
+    if (totalHits >= 1) {
+      fetchBtn.style.display = 'block';
+    }
+    if (totalHits <= 1) {
+      fetchBtn.style.display = 'none';
+    }
   } catch (error) {
     console.log(error);
   }
 }
 
-function cleanGallery() {
-  newArr = [];
-  gallery.innerHTML = '';
-}
 form.addEventListener('submit', e => {
   e.preventDefault();
-  fetchBtn.style.display = 'block';
   if (gallery.children.length >= 1) {
     gallery.innerHTML = '';
     newArr = [];
   }
   page = 1;
   createGallery();
-  if (gallery.children.length <= 1 || gallery.children.length > 0) {
+  if (gallery.children.length <= 1 && gallery.children.length > 0) {
     setTimeout(() => {
       Notify.success(`Hooray! We found ${totalHits} images.`);
     }, 250);
