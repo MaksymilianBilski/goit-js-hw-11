@@ -4,28 +4,28 @@ const button = document.querySelector('button[type=submit]');
 const gallery = document.querySelector('.gallery');
 const fetchBtn = document.querySelector('.load-more');
 
-import { fetchData } from './fetch';
+import { fetchData, perPage } from './fetch';
 import { Notify } from 'notiflix';
 
 let newArr = [];
 let page = 0;
-let totalHits = 0;
+let total = 0;
 
 fetchBtn.style.display = 'none';
 
-//
+//creating an array of images data
 function getData() {
   const inputValue = input.value;
   return fetchData(inputValue).then(response => {
     const dataArray = response.hits;
-    console.log(' to jest linijika 21: ' + JSON.stringify(response));
-    totalHits = response.totalHits;
+    total = response.total;
     for (const item of dataArray) {
       newArr.push(item);
     }
   });
 }
 
+//creating each of data-images markups
 async function createMarkup() {
   for (const item of newArr) {
     gallery.insertAdjacentHTML(
@@ -51,15 +51,21 @@ async function createMarkup() {
   }
 }
 
+//creating gallery
 async function createGallery() {
   try {
     await getData();
     await createMarkup();
-    if (totalHits >= 1) {
+    if (total >= 1) {
       fetchBtn.style.display = 'block';
     }
-    if (totalHits <= 1) {
+    if (total <= 1) {
       fetchBtn.style.display = 'none';
+    }
+    if (total > 0 && page < 2) {
+      setTimeout(() => {
+        Notify.success(`Hooray! We found ${total} images.`);
+      }, 250);
     }
   } catch (error) {
     console.log(error);
@@ -74,11 +80,6 @@ form.addEventListener('submit', e => {
   }
   page = 1;
   createGallery();
-  if (gallery.children.length <= 1 && gallery.children.length > 0) {
-    setTimeout(() => {
-      Notify.success(`Hooray! We found ${totalHits} images.`);
-    }, 250);
-  }
 });
 
 fetchBtn.addEventListener('click', e => {
@@ -88,6 +89,12 @@ fetchBtn.addEventListener('click', e => {
   }
   page += 1;
   createGallery();
+  let totalPages = total / perPage;
+  if (page > totalPages) {
+    Notify.failure(
+      "We're sorry, but you've reached the end of search results."
+    );
+  }
 });
 
 export { page };

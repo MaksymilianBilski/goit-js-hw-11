@@ -4,7 +4,7 @@ const KEY = '30839127-8a41b37b8b94b94b2633e44b5';
 const imageType = 'photo';
 const imageOrientation = 'horizontal';
 const safesearch = 'true';
-const perPage = 6;
+const perPage = 20;
 const URL =
   'https://pixabay.com/api/?key=' +
   KEY +
@@ -29,4 +29,4 @@ async function fetchData(inputValue) {
   }
 }
 
-export { fetchData };
+export { fetchData, perPage };
