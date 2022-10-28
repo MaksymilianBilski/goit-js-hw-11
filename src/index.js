@@ -68,6 +68,11 @@ async function createGallery() {
         Notify.success(`Hooray! We found ${total} images.`);
       }, 250);
     }
+    if (total === 0) {
+      Notify.failure(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
+    }
   } catch (error) {
     console.log(error);
   }
