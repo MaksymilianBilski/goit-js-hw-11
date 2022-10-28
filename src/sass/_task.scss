@@ -6,7 +6,12 @@
 }
 
 .gallery > div{
-margin: 0 auto;
+margin: 10px auto;
+}
+
+.gallery>div:hover{
+border: solid 1px rgb(76, 59, 136);
+background-color: rgb(212, 241, 253);;
 }
 
 .search-form{
@@ -39,4 +44,8 @@ margin: 0 auto;
 .search-form>button:hover{
     background-color: yellowgreen;
       border: solid 1px darkgreen;
+}
+
+body{
+  background-color: lightblue;
 }

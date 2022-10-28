@@ -75,6 +75,7 @@ async function createGallery() {
 
 form.addEventListener('submit', e => {
   e.preventDefault();
+  fetchBtn.style.visibility = 'visible';
   if (gallery.children.length >= 1) {
     gallery.innerHTML = '';
     newArr = [];
@@ -92,6 +93,7 @@ fetchBtn.addEventListener('click', e => {
   createGallery();
   let totalPages = total / perPage;
   if (page > totalPages) {
+    fetchBtn.style.visibility = 'hidden';
     Notify.failure(
       "We're sorry, but you've reached the end of search results."
     );
