@@ -30,7 +30,7 @@
 // }
 
 // export { fetchData, perPage };
-import {input } from './index';
+import { input } from './index';
 const URL = 'https://pixabay.com/api/?';
 
 function fetchPhotos(value) {
@@ -42,11 +42,11 @@ function fetchPhotos(value) {
     orientation: 'horizontal',
     image_type: 'photo',
     page: 1,
-    per_page: 40,
+    per_page: 10,
   });
   return fetch(URL + searchParams)
     .then(response => response.json())
     .catch(error => error);
 }
 
-export { fetchPhotos };
+export { fetchPhotos, page };

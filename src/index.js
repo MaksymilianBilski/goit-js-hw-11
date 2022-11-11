@@ -107,13 +107,13 @@
 
 // export { page };
 
-import { fetchPhotos } from './fetch';
+import { fetchPhotos, page } from './fetch';
 
 const input = document.querySelector('input[type=text]');
 const form = document.querySelector('form');
 const button = document.querySelector('button[type=submit]');
 const gallery = document.querySelector('.gallery');
-let value = input.value;
+const btnLoad = document.querySelector('.load-more');
 
 function createGallery(data) {
   return data.hits.forEach(hits =>
@@ -146,4 +146,8 @@ form.addEventListener('submit', e => {
     .then(data => createGallery(data))
     .catch(error => console.log(error));
 });
-export { value, input };
+
+btnLoad.addEventListener('click', () => {
+  page += 1;
+});
+export { input };
