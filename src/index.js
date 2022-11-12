@@ -107,16 +107,21 @@
 
 // export { page };
 
-import { fetchPhotos, page } from './fetch';
+//2 METODA
+
+import { Notify } from 'notiflix';
+import { fetchPhotos } from './fetch';
 
 const input = document.querySelector('input[type=text]');
 const form = document.querySelector('form');
-const button = document.querySelector('button[type=submit]');
-const gallery = document.querySelector('.gallery');
 const btnLoad = document.querySelector('.load-more');
+const gallery = document.querySelector('.gallery');
+btnLoad.setAttribute('hidden', 'hidden');
+let page = 1;
 
 function createGallery(data) {
-  return data.hits.forEach(hits =>
+  btnLoad.removeAttribute('hidden');
+  data.hits.forEach(hits =>
     gallery.insertAdjacentHTML(
       'afterbegin',
       `<div class="photo-card">
@@ -138,16 +143,42 @@ function createGallery(data) {
 </div>`
     )
   );
+  if (page === 1) {
+    Notify.success(`"Hooray! We found ${data.total} images`);
+  }
+}
+
+function clearGallery() {
+  gallery.innerHTML = '';
+  page = 1;
 }
 
 form.addEventListener('submit', e => {
   e.preventDefault();
-  fetchPhotos()
-    .then(data => createGallery(data))
-    .catch(error => console.log(error));
+  async function asyncCreate() {
+    try {
+      const response = await fetchPhotos();
+      createGallery(response.data);
+    } catch (error) {
+      concole.log(error);
+    }
+  }
+  asyncCreate();
+  if (gallery.childNodes.length > 0) {
+    clearGallery();
+  }
 });
 
 btnLoad.addEventListener('click', () => {
   page += 1;
+  fetchPhotos().then(response => {
+    if (gallery.childNodes.length === response.data.total) {
+      Notify.failure(
+        `We're sorry, but you've reached the end of search results.`
+      );
+    }
+    createGallery(response.data);
+  });
 });
-export { input };
+
+export { input, page };

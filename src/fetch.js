@@ -30,10 +30,15 @@
 // }
 
 // export { fetchData, perPage };
-import { input } from './index';
+
+//2 METODA
+
+import { Notify } from 'notiflix';
+import { input, page } from './index';
+const axios = require('../node_modules/axios/dist/axios/');
 const URL = 'https://pixabay.com/api/?';
 
-function fetchPhotos(value) {
+async function fetchPhotos(value) {
   value = input.value;
   const searchParams = new URLSearchParams({
     key: '30839127-8a41b37b8b94b94b2633e44b5',
@@ -41,12 +46,20 @@ function fetchPhotos(value) {
     safesearch: true,
     orientation: 'horizontal',
     image_type: 'photo',
-    page: 1,
+    page: page,
     per_page: 10,
   });
-  return fetch(URL + searchParams)
-    .then(response => response.json())
-    .catch(error => error);
+  try {
+    const response = await axios.get(URL + searchParams);
+    if (response.data.total === 0) {
+      Notify.failure(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
+    }
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-export { fetchPhotos, page };
+export { fetchPhotos };
